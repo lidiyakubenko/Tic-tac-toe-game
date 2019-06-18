@@ -2,8 +2,8 @@ import c from '../../constants'
 
 const game = (state = {}, action) => {
     switch (action.type) {
-        case c.NEW_GAME:
-            return {...state, game: 'new'}
+        case c.MAKE_GOAL:
+            return state
         default:
             return state
     }
