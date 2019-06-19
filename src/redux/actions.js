@@ -1,15 +1,31 @@
-import {calculateDiagonals, calculateVerticals, checkMatrices,determineEmptyField} from './help-functions'
 import c from '../../constants'
+import {
+    calculateDiagonals,
+    calculateVerticals,
+    checkMatrices,
+    determineEmptyField,
+    calculateFilled
+} from './help-functions'
 
 
-export const determineWinner = (gameField) => dispatch => {
+export const determineWinner = (gameField, type) => dispatch => {
     const copyField = [...gameField]
     const matrices = [copyField, calculateDiagonals(copyField), calculateVerticals(copyField)]
     const result = checkMatrices(matrices, 0)
-    dispatch({type: c.DETERMINE_WINNER, value: result ? result : null})
+    if(!result && isTie(gameField)){
+        dispatch({type: 'DETERMINE_TIE', value: 'No winner...'})
+    }
+    else {
+        dispatch({type: type, value: result ? result : null})
+    }
 }
 
 export const computerMakeGoal = gameField => dispatch => {
     const emptyField = determineEmptyField(gameField)
-    dispatch({...emptyField,value:'o',type: c.COMPUTER_MAKE_GOAL})
+    dispatch({...emptyField, value: 'o', type: c.COMPUTER_MAKE_GOAL})
+}
+
+export const isTie = gameField => {
+    const filled = calculateFilled(gameField)
+    return filled.every(f => f)
 }

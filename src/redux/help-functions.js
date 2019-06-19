@@ -1,22 +1,13 @@
-const checkRowMatches = (line, condition) => [...line].every(l => l === condition)
-
-const checkRowFilled = line => [...line].every(l =>l)
+export const checkRow = (line, condition) => [...line].every(l => l === condition)
 
 const calculateMatches = matrix => matrix.reduce((accum, line) =>
-    [...accum, checkRowMatches(line, 'x') ? 'x' : checkRowMatches(line, 'o') ? 'o' : null], [])
-
-const calculateFilled = matrix => matrix.reduce((accum, line) =>
-    [...accum, checkRowFilled(line)], [])
+    [...accum, checkRow(line, 'x') ? 'x' : checkRow(line, 'o') ? 'o' : null], [])
 
 const checkWinner = matrix => {
-    let resultMatches = null
-    let resultFilled = null
+    let result = null
     const matches = calculateMatches(matrix)
-    const filled = calculateFilled(matrix)
-    matches.forEach(val => val ? resultMatches = val : null)
-    resultFilled = filled.every(val => val)
-    console.log(resultFilled)
-    return resultMatches? resultMatches : resultFilled ? 'No winner...' : null
+    matches.forEach(val => val ? result = val : null)
+    return result
 }
 
 export const checkMatrices = (matrices, index) => {
@@ -47,3 +38,5 @@ export const determineEmptyField = gameField => {
     const field = gameField[randomRow][randomField]
     return field ? determineEmptyField(gameField) : {row: randomRow, field: randomField}
 }
+
+export const calculateFilled = matrix => matrix.reduce((accum, line) => [...accum, ...line], [])

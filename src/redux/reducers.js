@@ -11,6 +11,8 @@ const makeGoalGameField = (state, action) => state.map((s, i) => i !== action.ro
 
 const makeGoalRow = (state, action) => state.map((s, i) => i !== action.field ? s : action.value)
 
+const determineWinner = (state, action) => action.value === 'x' ? 'You win!' :
+    action.value === 'o' ? 'Computer win!' : null
 
 const gameField = (state = initialStateField, action) => {
     switch (action.type) {
@@ -18,19 +20,23 @@ const gameField = (state = initialStateField, action) => {
             return makeGoalGameField(state, action)
         case c.COMPUTER_MAKE_GOAL:
             return makeGoalGameField(state, action)
+        case c.CLEAN_STATE:
+            return initialStateField
         default:
             return state
     }
 }
 
-
-export default combineReducers({gameField})
-
 const winner = (state = null, action) => {
     switch (action.type) {
         case c.DETERMINE_WINNER:
-            return action.value === 'x' ? 'me' :
-                action.value === 'o' ? 'computer' : null
+            return determineWinner(state, action)
+        case c.DETERMINE_WINNER_AFTER_COMPUTER:
+            return determineWinner(state, action)
+        case c.DETERMINE_TIE:
+            return action.value
+        case c.CLEAN_STATE:
+            return null
         default:
             return state
     }
