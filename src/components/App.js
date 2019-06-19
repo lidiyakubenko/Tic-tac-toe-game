@@ -1,19 +1,41 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Row from './Row'
+import c from '../../constants'
 
 class App extends Component {
+
     render() {
-        const {game} =this.props
+        const {gameField, makeGoal} = this.props
         return (
             <div>
-                {game}
+                <table className='game_field'>
+                    <tbody>
+                    {gameField.map((row, i) => (
+                        <Row
+                            key={i}
+                            row={row}
+                            numberRow={i}
+                            makeGoal={makeGoal}
+                        />)
+                    )}
+                    </tbody>
+                </table>
             </div>
+
         )
 
     }
 }
 
 const mapStateToProps = state => ({
-    game: state.game
+    gameField: state.gameField,
 })
-export default connect(mapStateToProps, null)(App)
+
+const mapDispatchToProps = dispatch => ({
+    makeGoal(eventInfo) {
+        dispatch({...eventInfo, type: c.MAKE_GOAL})
+    },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

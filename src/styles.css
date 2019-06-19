@@ -1,0 +1,18 @@
+.game_field {
+    font-family: sans-serif;
+    font-size: 4em;
+    table-layout: fixed;
+}
+
+.game_cell{
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    border: 0.5px solid black;
+}
+
+.game_cell:hover{
+    background-color: tomato;
+    transition: 1s;
+}
