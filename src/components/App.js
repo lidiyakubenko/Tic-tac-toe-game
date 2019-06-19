@@ -2,11 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Row from './Row'
 import c from '../../constants'
+import PropTypes from 'prop-types'
 
 class App extends Component {
 
     render() {
-        const {gameField, makeGoal,winner,startNewGame} = this.props
+        const {gameField = [], makeGoal = f => f, winner = '', startNewGame = f => f} = this.props
         return (
             <div>
                 <h3>{winner}</h3>
@@ -31,6 +32,14 @@ class App extends Component {
     }
 }
 
+App.propTypes = {
+    gameField: PropTypes.array,
+    makeGoal: PropTypes.func,
+    winner: PropTypes.string,
+    startNewGame: PropTypes.func
+}
+
+
 const mapStateToProps = state => ({
     gameField: state.gameField,
     winner: state.winner
@@ -40,7 +49,7 @@ const mapDispatchToProps = dispatch => ({
     makeGoal(eventInfo) {
         dispatch({...eventInfo, type: c.MAKE_GOAL})
     },
-    startNewGame(){
+    startNewGame() {
         dispatch({type: c.CLEAN_STATE})
     }
 })

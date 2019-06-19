@@ -56,7 +56,13 @@ module.exports = (env, argv) => {
 
     if (argv.mode === 'production') {
         config.devtool = 'cheap-source-map'
-        config.plugins = [...config.plugins, new BundleAnalyzerPlugin()]
+        config.plugins = [...config.plugins,
+            new BundleAnalyzerPlugin(),
+            new MiniCssExtractPlugin({
+                filename: '[name].css',
+                chunkFilename: '[id].css',
+            })
+        ]
 
         config.optimization = {
             noEmitOnErrors: true,
@@ -76,6 +82,6 @@ module.exports = (env, argv) => {
             }]
     }
 
-return config
+    return config
 
 }

@@ -23,6 +23,11 @@ class Row extends Component {
     }
 }
 
-Row.propTypes = {}
+Row.propTypes = {
+    row:PropTypes.array,
+    makeGoal: PropTypes.func,
+    winner: PropTypes.string,
+    numberRow: PropTypes.number
+}
 
 export default Row
