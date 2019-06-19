@@ -25,3 +25,15 @@ const gameField = (state = initialStateField, action) => {
 
 
 export default combineReducers({gameField})
+
+const winner = (state = null, action) => {
+    switch (action.type) {
+        case c.DETERMINE_WINNER:
+            return action.value === 'x' ? 'me' :
+                action.value === 'o' ? 'computer' : null
+        default:
+            return state
+    }
+}
+
+export default combineReducers({gameField, winner})
