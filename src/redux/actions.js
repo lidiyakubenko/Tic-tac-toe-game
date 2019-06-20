@@ -4,7 +4,7 @@ import {
     calculateVerticals,
     checkMatrices,
     determineEmptyField,
-    calculateFilled
+    convertToOneArr
 } from './help-functions'
 
 
@@ -26,6 +26,6 @@ export const computerMakeGoal = gameField => dispatch => {
 }
 
 export const isTie = gameField => {
-    const filled = calculateFilled(gameField)
+    const filled = convertToOneArr(gameField)
     return filled.every(f => f)
 }

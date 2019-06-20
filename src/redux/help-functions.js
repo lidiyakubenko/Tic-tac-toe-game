@@ -1,9 +1,9 @@
 export const checkRow = (line, condition) => [...line].every(l => l === condition)
 
-const calculateMatches = matrix => matrix.reduce((accum, line) =>
+export const calculateMatches = matrix => matrix.reduce((accum, line) =>
     [...accum, checkRow(line, 'x') ? 'x' : checkRow(line, 'o') ? 'o' : null], [])
 
-const checkWinner = matrix => {
+export const checkWinner = matrix => {
     let result = null
     const matches = calculateMatches(matrix)
     matches.forEach(val => val ? result = val : null)
@@ -39,4 +39,4 @@ export const determineEmptyField = gameField => {
     return field ? determineEmptyField(gameField) : {row: randomRow, field: randomField}
 }
 
-export const calculateFilled = matrix => matrix.reduce((accum, line) => [...accum, ...line], [])
+export const convertToOneArr = matrix => matrix.reduce((accum, line) => [...accum, ...line], [])
